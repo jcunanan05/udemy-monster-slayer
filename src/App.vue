@@ -1,60 +1,66 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" 
+                  style="background-color: green; margin: 0; color: white;" >
+                    {{ playerHealth }}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" 
+                  style="background-color: green; margin: 0; color: white;" >
+                    {{ monsterHealth }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="row controls">
+        <div class="small-12 columns">
+            <button id="start-game">START NEW GAME</button>
+        </div>
+    </section>
+
+
+    <section class="row controls">
+        <div class="small-12 columns">
+            <button id="attack">ATTACK</button>
+            <button id="special-attack">SPECIAL ATTACK</button>
+            <button id="heal">HEAL</button>
+            <button id="give-up">GIVE UP</button>
+        </div>
+    </section>
+
+
+    <section class="row log">
+        <div class="small-12 columns">
+            <ul>
+                <li>
+
+                </li>
+            </ul>
+        </div>
+    </section>
   </div>
 </template>
 
 <script>
 export default {
   name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
+
+  data: () => ({
+    playerHealth: 100,
+    monsterHealth: 100,
+    gameIsRunning: false
+  })
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
