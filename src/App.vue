@@ -5,7 +5,8 @@
             <h1 class="text-center">YOU</h1>
             <div class="healthbar">
                 <div class="healthbar text-center" 
-                  style="background-color: green; margin: 0; color: white;" >
+                  style="background-color: green; margin: 0; color: white;"
+                  :style="{width: playerHealth + '%'}" >
                     {{ playerHealth }}
                 </div>
             </div>
@@ -16,7 +17,8 @@
             <h1 class="text-center">MONSTER</h1>
             <div class="healthbar">
                 <div class="healthbar text-center" 
-                  style="background-color: green; margin: 0; color: white;" >
+                  style="background-color: green; margin: 0; color: white;" 
+                  :style="{width: monsterHealth + '%'}" >
                     {{ monsterHealth }}
                 </div>
             </div>
@@ -24,19 +26,34 @@
     </section>
 
 
-    <section class="row controls">
+    <section class="row controls" v-if="! gameIsRunning">
         <div class="small-12 columns">
-            <button id="start-game">START NEW GAME</button>
+            <button 
+              id="start-game" 
+              @click="startGame" >
+              START NEW GAME
+            </button>
         </div>
     </section>
 
 
-    <section class="row controls">
+    <section class="row controls" v-else>
         <div class="small-12 columns">
-            <button id="attack">ATTACK</button>
-            <button id="special-attack">SPECIAL ATTACK</button>
-            <button id="heal">HEAL</button>
-            <button id="give-up">GIVE UP</button>
+            <button 
+              id="attack"
+              @click="attack" >ATTACK</button>
+
+            <button 
+              id="special-attack"
+              @click="specialAttack" >SPECIAL ATTACK</button>
+
+            <button 
+              id="heal"
+              @click="heal" >HEAL</button>
+
+            <button 
+              id="give-up" 
+              @click="giveUp" >GIVE UP</button>
         </div>
     </section>
 
@@ -61,6 +78,35 @@ export default {
     playerHealth: 100,
     monsterHealth: 100,
     gameIsRunning: false
-  })
+  }),
+
+  methods: {
+    startGame() {
+      this.gameIsRunning = true;
+      this.playerHealth = 100;
+      this.monsterHealth = 100;
+    },
+
+    
+    attack() {
+
+    },
+
+
+    specialAttack() {
+
+    },
+
+
+    heal() {
+
+    },
+
+
+    giveUp() {
+      this.gameIsRunning = false;
+    }
+
+  }
 }
 </script>
