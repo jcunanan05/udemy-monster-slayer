@@ -87,9 +87,46 @@ export default {
       this.monsterHealth = 100;
     },
 
+    calculateDamage(min, max) {
+      return Math.max(
+        Math.floor((Math.random() * max) + 1), 
+        min);
+    },
+
     
     attack() {
+      this.monsterHealth -= this.calculateDamage(3, 10);
 
+      if(this.checkWin()) {
+        return;
+      }
+
+      this.playerHealth -= this.calculateDamage(5, 12);
+
+      this.checkWin();
+    },
+
+
+    checkWin() {
+      if(this.monsterHealth <= 0) {
+        if(confirm('you won')) {
+          this.startGame();
+        } else {
+          this.gameIsRunning = false;
+        } 
+
+        return true;
+      } else if(this.playerHealth <= 0) {
+        if(confirm('you lose')) {
+          this.startGame();
+        } else {
+          this.gameIsRunning = false;
+        } 
+
+        return true;
+      }
+
+      return false;
     },
 
 
