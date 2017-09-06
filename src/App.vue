@@ -58,11 +58,11 @@
     </section>
 
 
-    <section class="row log">
+    <section v-if="turns.length > 0" class="row log">
         <div class="small-12 columns">
             <ul>
-                <li>
-
+                <li v-for="turn in turns">
+                  {{ turn.text }}
                 </li>
             </ul>
         </div>
@@ -77,7 +77,8 @@ export default {
   data: () => ({
     playerHealth: 100,
     monsterHealth: 100,
-    gameIsRunning: false
+    gameIsRunning: false,
+    turns: []
   }),
 
   methods: {
@@ -85,6 +86,7 @@ export default {
       this.gameIsRunning = true;
       this.playerHealth = 100;
       this.monsterHealth = 100;
+      this.turns = [];
     },
 
     calculateDamage(min, max) {
@@ -95,7 +97,13 @@ export default {
 
     
     attack() {
-      this.monsterHealth -= this.calculateDamage(3, 10);
+      let damage = this.calculateDamage(3, 10);
+      this.monsterHealth -= damage;
+
+      this.turns.unshift({
+        isPlayer: true,
+        text: 'Player hits Monster for ' + damage
+      });
 
       if(this.checkWin()) {
         return;
@@ -140,9 +148,15 @@ export default {
 
 
     monsterAttacks() {
-      this.playerHealth -= this.calculateDamage(5, 12);
+      let damage = this.calculateDamage(5, 12);
+      this.playerHealth -= damage;
 
       this.checkWin();
+
+      this.turns.unshift({
+        isPlayer: false,
+        text: 'Monster hits Player for ' + damage
+      });
     },
 
 
