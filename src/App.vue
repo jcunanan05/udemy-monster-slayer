@@ -6,7 +6,7 @@
             <div class="healthbar">
                 <div class="healthbar text-center" 
                   style="background-color: green; margin: 0; color: white;"
-                  :style="{width: playerHealth + '%'}" >
+                  :style="{ width: playerHealth + '%' }" >
                     {{ playerHealth }}
                 </div>
             </div>
@@ -101,9 +101,7 @@ export default {
         return;
       }
 
-      this.playerHealth -= this.calculateDamage(5, 12);
-
-      this.checkWin();
+      this.monsterAttacks();
     },
 
 
@@ -131,12 +129,31 @@ export default {
 
 
     specialAttack() {
+      this.monsterHealth -= this.calculateDamage(10, 20);
 
+      if(this.checkWin()) {
+        return;
+      }
+
+      this.monsterAttacks();
+    },
+
+
+    monsterAttacks() {
+      this.playerHealth -= this.calculateDamage(5, 12);
+
+      this.checkWin();
     },
 
 
     heal() {
-
+      if (this.playerHealth <= 90) {
+        this.playerHealth += 10;
+      } else {
+        this.playerHealth = 100;
+      }
+      
+      this.monsterAttacks();
     },
 
 
