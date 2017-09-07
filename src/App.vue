@@ -61,7 +61,9 @@
     <section v-if="turns.length > 0" class="row log">
         <div class="small-12 columns">
             <ul>
-                <li v-for="turn in turns">
+                <li v-for="(turn, id) in turns" 
+                  :key="id"
+                  :class="{'player-turn': turn.isPlayer, 'monster-turn': ! turn.isPlayer }" >
                   {{ turn.text }}
                 </li>
             </ul>
@@ -137,7 +139,13 @@ export default {
 
 
     specialAttack() {
-      this.monsterHealth -= this.calculateDamage(10, 20);
+      let damage = this.calculateDamage(10, 20);
+      this.monsterHealth -= damage;
+
+      this.turns.unshift({
+        isPlayer: true,
+        text: 'Player hits Monster hard for ' + damage
+      });
 
       if(this.checkWin()) {
         return;
@@ -166,6 +174,11 @@ export default {
       } else {
         this.playerHealth = 100;
       }
+
+      this.turns.unshift({
+        isPlayer: true,
+        text: 'Player heals for 10'
+      });
       
       this.monsterAttacks();
     },
@@ -173,6 +186,7 @@ export default {
 
     giveUp() {
       this.gameIsRunning = false;
+      this.turns = [];
     }
 
   }
